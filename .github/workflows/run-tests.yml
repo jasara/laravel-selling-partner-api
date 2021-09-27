@@ -14,7 +14,7 @@ jobs:
         with:
           php_extensions: pcov
           bootstrap: vendor/autoload.php
-          configuration: phpunit.xml
+          configuration: phpunit.xml.dist
       - name: phpunit-coverage-badge
         uses: timkrase/phpunit-coverage-badge@v1.2.0
         with:
