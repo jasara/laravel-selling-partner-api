@@ -1,87 +1,82 @@
-# :package_description
+#  Laravel wrapper for Amazon's Selling Partner API SDK 
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/:vendor_slug/:package_slug.svg?style=flat-square)](https://packagist.org/packages/:vendor_slug/:package_slug)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/:vendor_slug/:package_slug/run-tests?label=tests)](https://github.com/:vendor_slug/:package_slug/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/:vendor_slug/:package_slug/Check%20&%20fix%20styling?label=code%20style)](https://github.com/:vendor_slug/:package_slug/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amain)
-[![Total Downloads](https://img.shields.io/packagist/dt/:vendor_slug/:package_slug.svg?style=flat-square)](https://packagist.org/packages/:vendor_slug/:package_slug)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/jasara/laravel-selling-partner-api.svg?style=flat-square)](https://packagist.org/packages/jasara/laravel-selling-partner-api)
+[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/jasara/laravel-selling-partner-api/run-tests?label=tests)](https://github.com/jasara/laravel-selling-partner-api/actions?query=workflow%3Arun-tests+branch%3Amain)
+[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/jasara/laravel-selling-partner-api/Check%20&%20fix%20styling?label=code%20style)](https://github.com/jasara/laravel-selling-partner-api/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amain)
+[![Total Downloads](https://img.shields.io/packagist/dt/jasara/laravel-selling-partner-api.svg?style=flat-square)](https://packagist.org/packages/jasara/laravel-selling-partner-api)
 
----
-This repo can be used to scaffold a Laravel package. Follow these steps to get started:
+This package is a Laravel wrapper around [Jasara's PHP SDK for Amazon's Selling Partner API](https://github.com/jasara/php-amzn-selling-partner-api). 
 
-1. Press the "Use template" button at the top of this repo to create a new repo with the contents of this skeleton
-2. Run "php ./configure.php" to run a script that will replace all placeholders throughout all the files
-3. Remove this block of text.
-4. Have fun creating your package.
-5. If you need help creating a package, consider picking up our <a href="https://laravelpackage.training">Laravel Package Training</a> video course.
----
+## License
 
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
-
-## Support us
-
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/:package_name.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/:package_name)
-
-We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
-
-We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
+While this package has an [MIT license](LICENSE.md), the core PHP SDK package is not commercially licensed. If you are using this package commerically, please see the [licensing section](https://github.com/jasara/php-amzn-selling-partner-api#license) of the core PHP SDK package.
 
 ## Installation
 
 You can install the package via composer:
 
 ```bash
-composer require :vendor_slug/:package_slug
-```
-
-You can publish and run the migrations with:
-
-```bash
-php artisan vendor:publish --provider="VendorName\Skeleton\SkeletonServiceProvider" --tag=":package_slug-migrations"
-php artisan migrate
+composer require jasara/laravel-selling-partner-api
 ```
 
 You can publish the config file with:
 ```bash
-php artisan vendor:publish --provider="VendorName\Skeleton\SkeletonServiceProvider" --tag=":package_slug-config"
+php artisan vendor:publish --provider="Jasara\LaravelAmznSPA\LaravelAmznSPAServiceProvider" --tag="laravel-selling-partner-api-config"
 ```
 
 This is the contents of the published config file:
 
 ```php
 return [
+    'marketplace_id' => env('AMZN_SPA_MARKETPLACE_ID'),
+    'application_id' => env('AMZN_SPA_APPLICATION_ID'),
+    'redirect_url' => env('AMZN_SPA_REDIRECT_URL'),
+    'use_test_endpoints' => env('AMZN_SPA_USE_TEST_ENDPOINTS'),
+    'aws_access_key' => env('AMZN_SPA_AWS_ACCESS_KEY'),
+    'aws_secret_key' => env('AMZN_SPA_AWS_SECRET_KEY'),
+    'lwa_client_id' => env('AMZN_SPA_LWA_CLIENT_ID'),
+    'lwa_client_secret' => env('AMZN_SPA_LWA_CLIENT_SECRET'),
 ];
 ```
 
 ## Usage
 
+For full usage information, see the [documentation website](https://phpspa.com/).
+
+In this Laravel wrapper, the underlying library will be automatically configured when you set the following environment variables:
+
+```
+AMZN_SPA_MARKETPLACE_ID=ATVPDKIKX0DER
+AMZN_SPA_APPLICATION_ID=amzn1.sellerapps.app.appid-1234-5678-a1b2-a1b2c3d4e5f6
+AMZN_SPA_REDIRECT_URL=yourapp.com/amazon/oauth/redirect
+AMZN_SPA_USE_TEST_ENDPOINTS=true
+AMZN_SPA_AWS_ACCESS_KEY=AKIASECRETKEY
+AMZN_SPA_AWS_SECRET_KEY=rf7x7rpjqq1tlcbbv2r9iahcmm6mluaqn8deitcl
+AMZN_SPA_LWA_CLIENT_ID=17r2r9iahcmm6mlubv2r9iahcmm6mluaqnlcbbv2r9iahiahcmm6mluaqn8de
+AMZN_SPA_LWA_CLIENT_SECRET=Atzr|1tlcbbv2r9iahcmm6mluaqn8d-secret
+```
+
+To call the Amazon API, first instantiate the Laravel wrapper class, passing any configuration parameters (such as client authorization tokens) into the constructor.
+
 ```php
-$skeleton = new VendorName\Skeleton();
-echo $skeleton->echoPhrase('Hello, VendorName!');
+$amzn = new \Jasara\LaravelAmznSPA\LaravelAmznSPA(
+    tokens: new \Jasara\AmznSPA\DataTransferObjects\AuthTokensDTO(
+        access_token: $access_token, // optional if there is a refresh token
+        expires_at: $expires_at, // optional, instance of CarbonImmutable
+        refresh_token: $refresh_token, // optional if there is an access token, Passing in the refresh token will automatically generate a new access token when needed
+    ),
+    http: $http, // instance of Illuminate\Http\Client\Factory - if you would like to stub tests, you can pass in a faked HTTP instance
+    grantless_token: new \Jasara\AmznSPA\DataTransferObjects\GrantlessTokenDTO(
+        access_token: $access_token, // optional, a new token will be automatically generated if not passed in
+        expires_at: $expires_at, // optional, instance of CarbonImmutable
+    ),
+    marketplace_id: $marketplace_id, // e.g. ATVPDKIKX0DER
+);
 ```
 
-## Testing
+You can then call the underlying library resources directly, such as the [Notifications resource](https://phpspa.com/docs/resources/notifications/). The response is a data transfer object adhering to the Amazon schema.
 
-```bash
-composer test
+```php
+$amzn->notifications->getDestinations();
+$destination_id = $response->payload[0]->destination_id;
 ```
-
-## Changelog
-
-Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
-
-## Contributing
-
-Please see [CONTRIBUTING](.github/CONTRIBUTING.md) for details.
-
-## Security Vulnerabilities
-
-Please review [our security policy](../../security/policy) on how to report security vulnerabilities.
-
-## Credits
-
-- [:author_name](https://github.com/:author_username)
-- [All Contributors](../../contributors)
-
-## License
-
-The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
