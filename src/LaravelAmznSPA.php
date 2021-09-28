@@ -3,6 +3,7 @@
 namespace Jasara\LaravelAmznSPA;
 
 use Illuminate\Http\Client\Factory;
+use Illuminate\Support\Facades\Http;
 use Jasara\AmznSPA\AmznSPA;
 use Jasara\AmznSPA\AmznSPAConfig;
 use Jasara\AmznSPA\DataTransferObjects\AuthTokensDTO;
@@ -23,6 +24,10 @@ class LaravelAmznSPA extends AmznSPA
             $config->setTokens($tokens);
         }
         if ($http) {
+            $config->setHttp($http);
+        } else {
+            $http = Http::getFacadeRoot();
+
             $config->setHttp($http);
         }
         if ($grantless_token) {

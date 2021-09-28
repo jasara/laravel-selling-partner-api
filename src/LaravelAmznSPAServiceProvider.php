@@ -9,13 +9,13 @@ class LaravelAmznSPAServiceProvider extends PackageServiceProvider
 {
     public function configurePackage(Package $package): void
     {
-        /*
-         * This class is a Package Service Provider
-         *
-         * More info: https://github.com/spatie/laravel-package-tools
-         */
         $package
             ->name('laravel-selling-partner-api')
             ->hasConfigFile();
+    }
+
+    public function packageRegistered()
+    {
+        $this->app['events']->subscribe(LaravelAmznSPAEventHandler::class);
     }
 }
