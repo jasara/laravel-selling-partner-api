@@ -13,9 +13,4 @@ class LaravelAmznSPAServiceProvider extends PackageServiceProvider
             ->name('laravel-selling-partner-api')
             ->hasConfigFile();
     }
-
-    public function packageRegistered()
-    {
-        $this->app['events']->subscribe(LaravelAmznSPAEventHandler::class);
-    }
 }

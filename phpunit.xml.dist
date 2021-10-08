@@ -10,9 +10,9 @@
             <directory suffix=".php">./src</directory>
         </include>
         <report>
-            <html outputDirectory="build/coverage"/>
-            <text outputFile="build/coverage.txt"/>
-            <clover outputFile="build/logs/clover.xml"/>
+            <html outputDirectory="tests/resources/coverage"/>
+            <text outputFile="tests/resources/coverage.txt"/>
+            <clover outputFile="tests/resources/logs/clover.xml"/>
         </report>
     </coverage>
 </phpunit>
