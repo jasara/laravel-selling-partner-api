@@ -19,7 +19,7 @@
         "php": "^8.1",
         "illuminate/http": "^10.0 || ^11.0",
         "illuminate/support": "^10.0 || ^11.0",
-        "jasara/php-amzn-selling-partner-api": "dev-main",
+        "jasara/php-amzn-selling-partner-api": ">=0.5.3 <0.7",
         "spatie/laravel-package-tools": "^1.11.0"
     },
     "require-dev": {
