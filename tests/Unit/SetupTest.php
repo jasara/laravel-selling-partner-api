@@ -64,7 +64,7 @@ class SetupTest extends TestCase
             new AuthTokens(
                 access_token: Str::random(),
                 refresh_token: Str::random(),
-                expires_at: CarbonImmutable::now(),
+                expires_at: CarbonImmutable::now()->addHour(),
             ),
         );
         $response = $amzn->notifications->getSubscription('ANY_OFFER_CHANGED');
