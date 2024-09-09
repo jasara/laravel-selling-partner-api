@@ -6,15 +6,15 @@ use Illuminate\Http\Client\Factory;
 use Illuminate\Support\Facades\Http;
 use Jasara\AmznSPA\AmznSPA;
 use Jasara\AmznSPA\AmznSPAConfig;
-use Jasara\AmznSPA\DataTransferObjects\AuthTokensDTO;
-use Jasara\AmznSPA\DataTransferObjects\GrantlessTokenDTO;
+use Jasara\AmznSPA\Data\AuthTokens;
+use Jasara\AmznSPA\Data\GrantlessToken;
 
 class LaravelAmznSPA extends AmznSPA
 {
     public function __construct(
-        ?AuthTokensDTO $tokens = null,
+        ?AuthTokens $tokens = null,
         ?Factory $http = null,
-        ?GrantlessTokenDTO $grantless_token = null,
+        ?GrantlessToken $grantless_token = null,
         ?string $marketplace_id = null,
     ) {
         $marketplace_id = $marketplace_id ?: config('selling-partner-api.marketplace_id');

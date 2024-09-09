@@ -2,13 +2,14 @@
 
 namespace Jasara\LaravelAmznSPA\Tests\Unit;
 
+use Carbon\CarbonImmutable;
 use Illuminate\Http\Client\Factory;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use Jasara\AmznSPA\AmznSPA;
-use Jasara\AmznSPA\DataTransferObjects\AuthTokensDTO;
-use Jasara\AmznSPA\DataTransferObjects\GrantlessTokenDTO;
-use Jasara\AmznSPA\DataTransferObjects\Responses\Notifications\GetSubscriptionResponse;
+use Jasara\AmznSPA\Data\AuthTokens;
+use Jasara\AmznSPA\Data\GrantlessToken;
+use Jasara\AmznSPA\Data\Responses\Notifications\GetSubscriptionResponse;
 use Jasara\AmznSPA\Exceptions\AuthenticationException;
 use Jasara\LaravelAmznSPA\LaravelAmznSPA;
 use Jasara\LaravelAmznSPA\Tests\TestCase;
@@ -29,12 +30,15 @@ class SetupTest extends TestCase
         $this->setupConfigKeys();
 
         $amzn = new LaravelAmznSPA(
-            new AuthTokensDTO(
+            new AuthTokens(
                 access_token: Str::random(),
+                refresh_token: null,
+                expires_at: null,
             ),
             new Factory(),
-            new GrantlessTokenDTO(
+            new GrantlessToken(
                 access_token: Str::random(),
+                expires_at: null,
             ),
             marketplace_id: 'ATVPDKIKX0DER',
         );
@@ -51,14 +55,16 @@ class SetupTest extends TestCase
                 'payload' => [
                     'subscriptionId' => '7fcacc7e-727b-11e9-8848-1681be663d3e',
                     'payloadVersion' => '1.0',
-                    'destinationId'=> '3acafc7e-121b-1329-8ae8-1571be663aa2',
+                    'destinationId' => '3acafc7e-121b-1329-8ae8-1571be663aa2',
                 ],
             ], 200),
         ]);
 
         $amzn = new LaravelAmznSPA(
-            new AuthTokensDTO(
+            new AuthTokens(
                 access_token: Str::random(),
+                refresh_token: Str::random(),
+                expires_at: CarbonImmutable::now()->addHour(),
             ),
         );
         $response = $amzn->notifications->getSubscription('ANY_OFFER_CHANGED');
@@ -83,8 +89,10 @@ class SetupTest extends TestCase
         ]);
 
         $amzn = new LaravelAmznSPA(
-            new AuthTokensDTO(
+            new AuthTokens(
                 access_token: Str::random(),
+                refresh_token: Str::random(),
+                expires_at: CarbonImmutable::now(),
             ),
         );
 
