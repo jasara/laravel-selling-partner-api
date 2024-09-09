@@ -22,8 +22,8 @@
         "spatie/laravel-package-tools": "^1.11.0"
     },
     "require-dev": {
-        "orchestra/testbench": "^9",
-        "phpunit/phpunit": "^10",
+        "orchestra/testbench": "^8",
+        "phpunit/phpunit": "^9",
         "spatie/laravel-ray": "^1.23"
     },
     "autoload": {
