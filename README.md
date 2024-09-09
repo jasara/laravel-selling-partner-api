@@ -1,7 +1,7 @@
 #  Laravel wrapper for Amazon's Selling Partner API SDK 
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/jasara/laravel-selling-partner-api.svg?style=flat-square)](https://packagist.org/packages/jasara/laravel-selling-partner-api)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/jasara/laravel-selling-partner-api/run-tests?label=tests)](https://github.com/jasara/laravel-selling-partner-api/actions?query=workflow%3Arun-tests+branch%3Amain)
+[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/jasara/laravel-selling-partner-api/run-tests.yml?branch=main&label=tests)](https://github.com/jasara/laravel-selling-partner-api/actions?query=workflow%3Arun-tests+branch%3Amain)
 [![Code coverage](https://raw.githubusercontent.com/jasara/laravel-selling-partner-api/main/.github/coverage.svg)](https://github.com/jasara/laravel-selling-partner-api)
 [![Total Downloads](https://img.shields.io/packagist/dt/jasara/laravel-selling-partner-api.svg?style=flat-square)](https://packagist.org/packages/jasara/laravel-selling-partner-api)
 
